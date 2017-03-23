@@ -1,27 +1,61 @@
-# This is the file where you must work. Write code in the functions, create new functions, 
-# so they work according to the specification
+import operator
 
-# Displays the inventory.
+inventory = {'rope': 1, 'torch': 6, 'gold coin': 42, 'dagger': 1, 'arrow': 12}
+dragon_loot = ['gold coin', 'dagger', 'gold coin', 'gold coin', 'ruby']
+
 def display_inventory(inventory):
-    pass
+    for first_item, second_item in inventory.items():
+        print (second_item, first_item)
 
 
-# Adds to the inventory dictionary a list of items from added_items.
 def add_to_inventory(inventory, added_items):
-    pass
+    for i in added_items:
+        if i in inventory: #megnézi, 'i' benne van e az inventoryban és ha igen, felveszi az értékét
+            inventory[i] += 1
+        else:
+            inventory.update({i:1})
 
+def print_table(inv, order=None):
+    n = max(len(x) for x in inventory)
+    print("Inventory:")
+    print("count" + " "*n + "Items' name" +"\n" + "-"*n*3)
+    b = max(len(x) for x in inventory)*2
+    if order == "count,desc":
+        a = sorted(inventory, key=inventory.get, reverse=True)
+        for i in a:
+            placeholder = ' {count:>5} {item:>' + str(b) + '}'
+            print(placeholder.format(count=str(inventory[i]), item=i))
+    elif order == "count,asc":
+        a = sorted(inventory, key=inventory.get)
+        for i in a:
+            print(str(inventory[i]) + " " + i)
+    elif None:
+        pass
+    else:
+        pass
+    print("-"*n*3)
 
-# Takes your inventory and displays it in a well-organized table with 
-# each column right-justified. The input argument is an order parameter (string)
-# which works as the following:
-# - None (by default) means the table is unordered
-# - "count,desc" means the table is ordered by count (of items in the inventory) 
-#   in descending order
-# - "count,asc" means the table is ordered by count in ascending order
+'''
 def print_table(inventory, order=None):
-    pass
+    n = max(len(x) for x in inventory)
+    m = 30-n
+    print ("Inventory:" + "\ncount item_name" + "\n" + "-"*m)
+    if order == "count,asc":
+        a = sorted(inventory, key=inventory.get)
+        print (str(inventory[i]) + " "*n + i)
+    elif order == "count,desc":
+        a = sorted(inventory, key=inventory.get, reverse=True)
+        for i in a:
+            print(str(inventory[i]) + " "*n + i)
+    elif order == None:
+        return display_inventory(inventory)
+    else:
+        print ("You are not worthy to peek into this mighty inventory!")
+        pass
+'''    
 
-
+add_to_inventory(inventory, dragon_loot)
+print_table(inventory, "count,desc")
 # Imports new inventory items from a file
 # The filename comes as an argument, but by default it's 
 # "import_inventory.csv". The import automatically merges items by name.
