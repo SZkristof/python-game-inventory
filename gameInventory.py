@@ -1,5 +1,3 @@
-import operator
-
 inventory = {'rope': 1, 'torch': 6, 'gold coin': 42, 'dagger': 1, 'arrow': 12}
 dragon_loot = ['gold coin', 'dagger', 'gold coin', 'gold coin', 'ruby']
 
@@ -16,24 +14,30 @@ def add_to_inventory(inventory, added_items):
             inventory.update({i:1})
 
 def print_table(inv, order=None):
-    n = max(len(x) for x in inventory)
     print("Inventory:")
-    print("count" + " "*n + "Items' name" +"\n" + "-"*n*3)
-    b = max(len(x) for x in inventory)*2
+    count = "count"
+    print(f'{count:>8}')
+    
+    b = max(len(x) for x in inv) + 5
+    asdf = []
+    for i in inv:
+        asdf.append(inv[i])
+    c = len(str(max(asdf)))
+    print('-'*(b+c+1))
+
     if order == "count,desc":
-        a = sorted(inventory, key=inventory.get, reverse=True)
+        a = sorted(inv, key=inv.get, reverse=True)
         for i in a:
-            placeholder = ' {count:>5} {item:>' + str(b) + '}'
-            print(placeholder.format(count=str(inventory[i]), item=i))
+            placeholder = '{count:>{0}} {item:>' + str(b) + '}'
+            print(placeholder.format(str(c),count=str(inv[i]), item=i))
     elif order == "count,asc":
-        a = sorted(inventory, key=inventory.get)
+        a = sorted(inv, key=inv.get)
         for i in a:
-            print(str(inventory[i]) + " " + i)
+            print(str(inv[i]) + " " + i)
     elif None:
         pass
     else:
         pass
-    print("-"*n*3)
 
 '''
 def print_table(inventory, order=None):
